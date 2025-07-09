@@ -1,0 +1,87 @@
+Topic -1: -1_im_feel_like_dont (Count: 2846)
+Words: ['im', 'feel', 'like', 'dont', 'know', 'ive', 'get', 'time', 'want', 'life', 'really', 'years', 'would', 'people', 'cant']
+
+Topic 0: 0_anxiety_anyone_health_mental (Count: 330)
+Words: ['anxiety', 'anyone', 'health', 'mental', 'mental health', 'hi', 'medication', 'im', 'psychologist', 'help', 'ive', 'years', 'psychiatrist', 'would', 'support']
+
+Topic 1: 1_im_like_dont_ive (Count: 199)
+Words: ['im', 'like', 'dont', 'ive', 'feel', 'really', 'think', 'know', 'gay', 'girl', 'girls', 'friends', 'gender', 'would', 'attracted']
+
+Topic 2: 2_dont_im_know_dont know (Count: 120)
+Words: ['dont', 'im', 'know', 'dont know', 'cant', 'feel', 'like', 'want', 'ive', 'feel like', 'get', 'really', 'think', 'anymore', 'dont want']
+
+Topic 3: 3_mum_lost_ago_years (Count: 81)
+Words: ['mum', 'lost', 'ago', 'years', 'died', 'passed', 'away', 'year', 'dad', 'life', 'im', 'cancer', 'time', 'passed away', 'hi']
+
+Topic 4: 4_mum_family_would_home (Count: 77)
+Words: ['mum', 'family', 'would', 'home', 'years', 'day', 'dad', 'life', 'away', 'told', 'mother', 'back', 'sister', 'could', 'husband']
+
+Topic 5: 5_life_one_people_mental (Count: 70)
+Words: ['life', 'one', 'people', 'mental', 'often', 'experience', 'thoughts', 'many', 'others', 'feel', 'health', 'etc', 'us', 'family', 'may']
+
+Topic 6: 6_im_ive_feel_dont (Count: 64)
+Words: ['im', 'ive', 'feel', 'dont', 'like', 'really', 'get', 'know', 'cant', 'want', 'even', 'feel like', 'year', 'friends', 'go']
+
+Topic 7: 7_im_dont_like_feel (Count: 61)
+Words: ['im', 'dont', 'like', 'feel', 'know', 'want', 'really', 'even', 'feel like', 'people', 'get', 'life', 'think', 'talk', 'cant']
+
+Topic 8: 8_help_ive_im_know (Count: 56)
+Words: ['help', 'ive', 'im', 'know', 'dont', 'anyone', 'mental', 'cant', 'one', 'really', 'psychologist', 'anxiety', 'mental health', 'depression', 'hi']
+
+Topic 9: 9_im_really_talk_help (Count: 48)
+Words: ['im', 'really', 'talk', 'help', 'feel', 'like', 'someone', 'depression', 'need', 'support', 'hi', 'right', 'talk someone', 'go', 'hard']
+
+Topic 10: 10_work_im_job_dont (Count: 42)
+Words: ['work', 'im', 'job', 'dont', 'time', 'get', 'want', 'life', 'back', 'like', 'feel', 'years', 'know', 'cant', 'going']
+
+Topic 11: 11_years_sister_family_daughter (Count: 39)
+Words: ['years', 'sister', 'family', 'daughter', 'life', 'mum', 'passed', 'brother', 'feel', 'mother', 'died', 'son', 'away', 'lost', 'death']
+
+Topic 12: 12_im_like_feel_dont (Count: 35)
+Words: ['im', 'like', 'feel', 'dont', 'get', 'job', 'feel like', 'know', 'even', 'work', 'would', 'ive', 'going', 'cant', 'dont know']
+
+Topic 13: 13_people_many_community_mental (Count: 30)
+Words: ['people', 'many', 'community', 'mental', 'communities', 'may', 'cultural', 'diverse', 'health', 'religious', 'nonenglish', 'mental health', 'nonenglish speaking', 'illness', 'lgbtiq']
+
+Topic 14: 14_ive_im_feel_like (Count: 26)
+Words: ['ive', 'im', 'feel', 'like', 'time', 'help', 'really', 'much', 'people', 'seem', 'dont', 'something', 'cant', 'know', 'get']
+
+Topic 15: 15_im_feel_get_cant (Count: 23)
+Words: ['im', 'feel', 'get', 'cant', 'struggling', 'like', 'job', 'day', 'life', 'depression', 'time', 'go', 'keep', 'dont', 'bad']
+
+Topic 16: 16_work_anxiety_help_feel (Count: 22)
+Words: ['work', 'anxiety', 'help', 'feel', 'get', 'health', 'go', 'hi', 'like', 'going', 'advice', 'people', 'feeling', 'going work', 'attacks']
+
+Topic 17: 17_ive_im_feel_years (Count: 20)
+Words: ['ive', 'im', 'feel', 'years', 'time', 'health', 'anxiety', 'mental', 'past', 'life', 'anyone', 'dont', 'body', 'mental health', 'trauma']
+
+Topic 18: 18_would_dont_know_lost (Count: 19)
+Words: ['would', 'dont', 'know', 'lost', 'last', 'time', 'life', 'family', 'never', 'first', 'grief', 'ago', 'dont know', 'cancer', 'wrote']
+
+Topic 19: 19_mental_significant_support_conference (Count: 18)
+Words: ['mental', 'significant', 'support', 'conference', 'animals', 'illness', 'mental illness', 'cultural', 'experiences', 'etc', 'colleague', 'australia', 'health', 'assistance', 'support animals']
+
+Topic 20: 20_love_sex_relationship_partner (Count: 17)
+Words: ['love', 'sex', 'relationship', 'partner', 'want', 'marriage', 'know', 'married', 'wife', 'dont', 'years', 'would', 'women', 'guys', 'feel']
+
+Topic 21: 21_im_feeling_ive_feel (Count: 17)
+Words: ['im', 'feeling', 'ive', 'feel', 'like', 'really', 'struggling', 'feelings', 'thoughts', 'normal', 'low', 'anxiety', 'cant', 'feel like', 'going']
+
+Topic 22: 22_vet_know_life_dogs (Count: 16)
+Words: ['vet', 'know', 'life', 'dogs', 'feel', 'cat', 'dog', 'would', 'knew', 'day', 'without', 'loved', 'going', 'never', 'like']
+
+Topic 23: 23_anxiety_im_sleep_ive (Count: 15)
+Words: ['anxiety', 'im', 'sleep', 'ive', 'medication', 'dose', 'get', 'ssri', 'time', 'nausea', 'like', 'getting', 'good', 'really', 'twitching']
+
+Topic 24: 24_office_manager_staff_work (Count: 14)
+Words: ['office', 'manager', 'staff', 'work', 'boss', 'job', 'leave', 'customer', 'would', 'told', 'company', 'back', 'bullying', 'im', 'phone']
+
+Topic 25: 25_im_dont_ive_even (Count: 13)
+Words: ['im', 'dont', 'ive', 'even', 'drugs', 'cant', 'get', 'life', 'time', 'lupus', 'know', 'everything', 'back', 'playing', 'going']
+
+Topic 26: 26_husband_partner_loss_father (Count: 11)
+Words: ['husband', 'partner', 'loss', 'father', 'lost', 'children', 'others', 'remember', 'died', 'anyone', 'affected relationship husband', 'husband ever', 'friend', 'affected relationship', 'happy times']
+
+Topic 27: 27_wife_years_gay_married (Count: 11)
+Words: ['wife', 'years', 'gay', 'married', 'love', 'man', 'interested', 'love wife', 'told', 'supportive', 'feelings', 'tell', 'woman', 'year', 'family']
+
