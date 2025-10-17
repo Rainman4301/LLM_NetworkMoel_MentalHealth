@@ -8,12 +8,13 @@ from faiss import read_index, write_index
 import torch
 import logging
 import nltk
-from openai import OpenAI  # Add this import for API
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import pdfplumber  # For PDF extraction
 import requests
 import json
 from dotenv import load_dotenv
+from huggingface_hub import login
+from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
 
 # Download VADER lexicon if not already downloaded
 nltk.download('vader_lexicon', quiet=True)
@@ -29,12 +30,38 @@ logger.info(f"Using device: {device}")
 # Load environment variables
 load_dotenv()
 
-# Set up OpenAI client for Hugging Face API router
-client = OpenAI(
-    base_url="https://router.huggingface.co/v1",
-    api_key=os.environ["HF_TOKEN"],
+# Hugging Face login
+hf_token = os.getenv("HF_TOKEN")  # Or hardcode for testing: hf_token = "your_token_here"
+if hf_token:
+    login(token=hf_token)
+else:
+    raise ValueError("HF_TOKEN not set in environment variables.")
+
+# Model config
+model_name = "meta-llama/Llama-3.3-70B-Instruct:fireworks-ai"  # Or "unsloth/Meta-Llama-3.1-8B-Instruct-bnb-4bit" for pre-quantized
+
+# Quantization config (uncomment if VRAM is limited)
+quantization_config = BitsAndBytesConfig(
+    load_in_4bit=True,
+    bnb_4bit_compute_dtype=torch.float16,
+    bnb_4bit_quant_type="nf4",
+    bnb_4bit_use_double_quant=True,
 )
-model_name = "meta-llama/Llama-3.3-70B-Instruct:fireworks-ai"  # Use a larger model via API
+
+# Load tokenizer and model
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+
+model = AutoModelForCausalLM.from_pretrained(
+    model_name,
+    dtype=torch.float16,  # Consistent with dtype
+    device_map="auto",
+    quantization_config=quantization_config,  # Uncomment for 4-bit
+    max_memory={0: "15GiB"}
+)
+
+# Set padding token
+if tokenizer.pad_token is None:
+    tokenizer.pad_token = tokenizer.eos_token
 
 # Load embedder
 embedder = SentenceTransformer('cambridgeltl/SapBERT-from-PubMedBERT-fulltext', device=device)
@@ -396,18 +423,17 @@ if os.path.exists(icd_index_path):
 else:
     raise FileNotFoundError(f"ICD-11 FAISS index not found at {icd_index_path}.")
 
-# API-based generation for RAG (single prompt)
+# Local generation function
+def generate_with_llm(messages: list[dict], max_tokens: int = 150) -> str:
+    input_ids = tokenizer.apply_chat_template(messages, return_tensors="pt").to(device)
+    outputs = model.generate(input_ids, max_new_tokens=max_tokens, temperature=0.8, top_p=0.95, do_sample=True, repetition_penalty=1.2)
+    response = tokenizer.decode(outputs[0][len(input_ids[0]):], skip_special_tokens=True)
+    return response.strip()
+
+# API-based generation for RAG (single prompt) - now local
 def generate_with_llm_rag(prompt: str, max_tokens: int = 120):
     messages = [{"role": "user", "content": prompt}]
-    completion = client.chat.completions.create(
-        model=model_name,
-        messages=messages,
-        max_tokens=max_tokens,
-        temperature=0.8,
-        top_p=0.95,
-        frequency_penalty=1.2  # Approximate repetition_penalty with frequency_penalty
-    )
-    return completion.choices[0].message.content.strip()
+    return generate_with_llm(messages, max_tokens)
 
 # Category retrieval with method - refined to use detected category
 def category_retrieve(category: str, query: str, method: str = 'original', k: int = 10) -> list[dict]:  # Retrieve more for rerank
@@ -499,18 +525,6 @@ def full_rag_workflow(query: str, method: str = 'original') -> list[dict]:
     # Step 3: Rerank
     reranked = rerank_results(retrieved)
     return reranked
-
-# API-based generation for chatbot (messages list)
-def generate_with_llm(messages: list[dict], max_tokens: int = 150) -> str:
-    completion = client.chat.completions.create(
-        model=model_name,
-        messages=messages,
-        max_tokens=max_tokens,
-        temperature=0.8,
-        top_p=0.95,
-        frequency_penalty=1.2  # Approximate repetition_penalty
-    )
-    return completion.choices[0].message.content.strip()
 
 # Refined chatbot loop with history and token management
 def run_chatbot(method: str = 'original', max_context_tokens: int = 8192, max_history_pairs: int = 10):
