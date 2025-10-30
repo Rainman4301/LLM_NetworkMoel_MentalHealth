@@ -14,6 +14,8 @@ import pdfplumber  # For PDF extraction
 import requests
 import json
 from dotenv import load_dotenv
+import tkinter as tk
+from tkinter import Text, Scrollbar, Entry, Button, END, NORMAL, DISABLED
 
 # Download VADER lexicon if not already downloaded
 nltk.download('vader_lexicon', quiet=True)
@@ -512,45 +514,91 @@ def generate_with_llm(messages: list[dict], max_tokens: int = 150) -> str:
     )
     return completion.choices[0].message.content.strip()
 
-# Refined chatbot loop with history and token management
-def run_chatbot(method: str = 'original', max_context_tokens: int = 8192, max_history_pairs: int = 10):
-    
-    system_prompt = """
-        You are a compassionate and empathetic mental health assistant. Your responses should:
-        - Analyze the user's input with care and understanding.
-        - Respond directly in a comforting manner, tailoring to the specific query, history, and provided guidelines.
-        - Incorporate relevant details from guidelines naturally (e.g., coping strategies).
-        - Offer gentle, practical coping suggestions where relevant, varying them based on context.
-        - Keep the tone warm, supportive, and conversational—vary phrasing to avoid repetition.
-        - You may suggest possible matching disorders from ICD-11 if provided in the prompt, but emphasize that it's not a formal diagnosis and professional consultation is needed.
-        - Responses should be 60-100 words.
-        """
-    # - Suggest professional help if needed (e.g., helplines like beyondblue: 1300 22 4636).
-    
-    history = []  # List of dicts: [{'role': 'user', 'content': ...}, {'role': 'assistant', 'content': ...}]
-    
-    print("Welcome to the Mental Health Chatbot. Type 'quit' to exit.")
-    
-    while True:
-        try:
-            query = input("You: ").strip()
-            if query.lower() in ['quit', 'exit']:
-                print("Chatbot: Goodbye! Take care.")
-                break
-            
-            if not query:
-                print("Chatbot: Please enter a message.")
-                continue
+# GUI class for the chatbot
+class MentalHealthChatbotGUI:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Mental Health Chatbot")
+        self.root.geometry("600x500")
+        self.root.configure(bg="#17202A")
 
+        self.system_prompt = """
+            You are a compassionate and empathetic mental health assistant, adapting your role dynamically—like a caring friend for casual chats or a thoughtful guide for deeper reflections—to keep interactions fresh. Your responses should:
+            - Analyze input empathetically, tailoring to query, history, and guidelines without rigid patterns (e.g., vary openings beyond name + feeling summary; try questions or shared observations first).
+            - Respond conversationally: Mix tones (warm, curious, uplifting) and structures (e.g., short paragraphs, bullets for suggestions) to avoid repetition.
+            - Weave in guidelines naturally (e.g., coping ideas as "One thing that helps me is...").
+            - Suggest practical steps gently, varying by context; for ICD-11 (if provided), highlight as non-diagnostic ideas and urge professional help.
+            - IMPORTANT: Do not mention or reference any 'Doc', 'Guideline', 'Section', scores, sentiments, sources, or internal labels. Integrate as innate knowledge.
+            - Responses should be 60-100 words; experiment with styles for natural flow.
+        """
+
+        self.history = []  # List of dicts: [{'role': 'user', 'content': ...}, {'role': 'assistant', 'content': ...}]
+        self.max_context_tokens = 8192
+        self.max_history_pairs = 10
+        self.method = 'hyde'  # Changed to match original; can be 'hyde' if preferred
+
+        # Scrollbar for chat (now sibling of text_cons)
+        self.scrollbar = Scrollbar(self.root)
+        self.scrollbar.place(relheight=0.85, relwidth=0.03, relx=0.0, rely=0.0)
+
+        # Chat display area
+        self.text_cons = Text(self.root, bg="#17202A", fg="#EAECEE", font="Helvetica 14", padx=5, pady=5, wrap="word", yscrollcommand=self.scrollbar.set)
+        self.text_cons.place(relheight=0.85, relwidth=0.97, relx=0.03, rely=0.0)
+        self.text_cons.config(state=DISABLED)
+
+        # Configure scrollbar command
+        self.scrollbar.config(command=self.text_cons.yview)
+
+        # Configure tags for alignment
+        self.text_cons.tag_config('user', justify='right', foreground="#AED6F1")  # Light blue for user
+        self.text_cons.tag_config('bot', justify='left', foreground="#ABEBC6")   # Light green for bot
+
+        # Entry for user message
+        self.entry_msg = Entry(self.root, bg="#2C3E50", fg="#EAECEE", font="Helvetica 13")
+        self.entry_msg.place(relwidth=0.74, relheight=0.06, rely=0.92, relx=0.011)
+        self.entry_msg.focus()
+        self.entry_msg.bind("<Return>", self.send_message)  # Bind Enter key to send
+
+        # Send button
+        self.button_msg = Button(self.root, text="Send", font="Helvetica 10 bold", width=20, bg="#ABB2B9", command=self.send_message)
+        self.button_msg.place(relx=0.77, rely=0.92, relheight=0.06, relwidth=0.22)
+
+        # Initial welcome message
+        self.append_message("Chatbot: Welcome to the Mental Health Chatbot. How can I help you today?\n")
+
+    def append_message(self, message):
+        self.text_cons.config(state=NORMAL)
+        if message.startswith("You:"):
+            tag = 'user'
+            # For better right alignment, add spaces or use lmargin, but simple justify for now
+        else:
+            tag = 'bot'
+        self.text_cons.insert(END, message + "\n\n", tag)
+        self.text_cons.config(state=DISABLED)
+        self.text_cons.see(END)
+
+    def send_message(self, event=None):
+        query = self.entry_msg.get().strip()
+        if not query:
+            return
+        if query.lower() in ['quit', 'exit']:
+            self.append_message("Chatbot: Goodbye! Take care.")
+            self.root.quit()
+            return
+
+        self.append_message(f"You: {query}")
+        self.entry_msg.delete(0, END)
+
+        try:
             # Accumulate user inputs from history + current query
-            user_inputs = [h['content'] for h in history if h['role'] == 'user'] + [query]
+            user_inputs = [h['content'] for h in self.history if h['role'] == 'user'] + [query]
             accumulated_input = ' '.join(user_inputs)
 
             # Embed accumulated input
             query_embedding = embedder.encode(accumulated_input, convert_to_tensor=True, device=device, normalize_embeddings=True)
             query_embedding_np = query_embedding.cpu().numpy().reshape(1, -1)
 
-            # Search ICD-11 index for top 4 matches
+            # Search ICD-11 index for top 4 matches (adjusted thresholds)
             distances, indices = icd_index.search(query_embedding_np, k=4)
             icd_infos = []
             high_score_disorders = []
@@ -559,7 +607,7 @@ def run_chatbot(method: str = 'original', max_context_tokens: int = 8192, max_hi
                     score = distances[0][i]
                     idx = indices[0][i]
                     if idx == -1: continue
-                    if score > 0.5:
+                    if score > 0.8:
                         row = icd_df.iloc[idx]
                         disorder_name = row['fully_specified_name']
                         code = row['code']
@@ -569,21 +617,22 @@ def run_chatbot(method: str = 'original', max_context_tokens: int = 8192, max_hi
                             Disorder Code: {code}
                             Disorder symptoms: {symptoms}
                             """)
-                        if score > 0.7:
+                        if score > 0.9:
                             high_score_disorders.append(f"{disorder_name} ({code})")
             
             icd_prompt_section = ""
             if icd_infos:
-                icd_prompt_section = f"\n\nPossible matching disorders from ICD-11 (similarity scores > 0.5):\n{''.join(icd_infos)}\nRemember, this is not a diagnosis; suggest professional help."
+                icd_prompt_section = f"\n\nPossible matching disorders from ICD-11 (similarity scores > 0.8):\n{''.join(icd_infos)}\nRemember, this is not a diagnosis; suggest professional help."
 
-            
             # Get RAG results
-            retrieved_docs = full_rag_workflow(query, method=method)
+            retrieved_docs = full_rag_workflow(query, method=self.method)
             
             # Format retrieved docs as context string
-            doc_context = "\n".join([f"Doc {i+1} (Sentiment: {doc['sentiment']}, Score: {doc['score']:.4f}): {doc['content']}" for i, doc in enumerate(retrieved_docs)])
-            
-            
+            # doc_context = "\n".join([f"Doc {i+1} (Sentiment: {doc['sentiment']}, Score: {doc['score']:.4f}): {doc['content']}" for i, doc in enumerate(retrieved_docs)])
+            # Format retrieved docs as context string (no labels to avoid leakage)
+            doc_context = "\n\n---\n\n".join([doc['content'] for doc in retrieved_docs])  # Separate contents with delimiters for readability in prompt
+
+
             # Build user prompt
             user_prompt = f"""
                     User's message: {query}
@@ -595,39 +644,40 @@ def run_chatbot(method: str = 'original', max_context_tokens: int = 8192, max_hi
                     """ + icd_prompt_section
             
             # Build messages
-            messages = [{"role": "system", "content": system_prompt}] + history + [{"role": "user", "content": user_prompt}]
+            messages = [{"role": "system", "content": self.system_prompt}] + self.history + [{"role": "user", "content": user_prompt}]
             
-            # Check token length and truncate history proactively if needed
-            # Note: Without local tokenizer, approximate token count or skip; for simplicity, assume API handles it or implement a rough estimator
-            # For now, we'll skip precise truncation; API has context limits (e.g., 128k for Llama-3.3)
+            # Token estimation and truncation
             def estimate_tokens(text: str) -> int:
-                return len(text.split()) * 1.3 + 100  # Rough estimate + buffer
+                return len(text.split()) * 1.3 + 100
 
-            while sum(estimate_tokens(msg['content']) for msg in messages) > max_context_tokens:
-                if len(history) <= 2:
+            while sum(estimate_tokens(msg['content']) for msg in messages) > self.max_context_tokens:
+                if len(self.history) <= 2:
                     logger.warning("Context exceeds limit; proceeding.")
                     break
-                history = history[2:]  # Remove oldest pair
-                messages = [{"role": "system", "content": system_prompt}] + history + [{"role": "user", "content": user_prompt}]
-                logger.info(f"Truncated history to {len(history)} entries.")
+                self.history = self.history[2:]  # Remove oldest pair
+                messages = [{"role": "system", "content": self.system_prompt}] + self.history + [{"role": "user", "content": user_prompt}]
+                logger.info(f"Truncated history to {len(self.history)} entries.")
             
             # Generate response
-            response = generate_with_llm(messages, max_tokens=130)
+            response = generate_with_llm(messages, max_tokens=100)
 
-            # If any with similarity > 0.7, append diagnosis suggestion
+            # Append diagnosis suggestion if applicable
             if high_score_disorders:
                 suggestions = ', '.join(high_score_disorders)
                 response += f"\n\nBased on the provided information, your symptoms suggest possible diagnoses of {suggestions} according to ICD-11."
-            
-            print("Chatbot:", response)
-            
+
+            self.append_message(f"Chatbot: {response}")
+
             # Append to history
-            history.append({"role": "user", "content": query})
-            history.append({"role": "assistant", "content": response})
+            self.history.append({"role": "user", "content": query})
+            self.history.append({"role": "assistant", "content": response})
         
         except Exception as e:
-            logger.error(f"Error in chatbot loop: {e}")
-            print("Chatbot: Sorry, something went wrong. Please try again.")
+            logger.error(f"Error in chatbot: {e}")
+            self.append_message("Chatbot: Sorry, something went wrong. Please try again.")
 
+# Run the GUI
 if __name__ == "__main__":
-    run_chatbot(method='multi')  # Change method as needed: 'original', 'multi', 'hyde'
+    root = tk.Tk()
+    app = MentalHealthChatbotGUI(root)
+    root.mainloop()
