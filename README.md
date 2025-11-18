@@ -1,173 +1,224 @@
-\section{LLM\_NetworkModel\_MentalHealth}
+LLM Network Model for Mental Health Analysis
 
-This project implements a Large Language Model (LLM)--based framework for \textbf{Topic Modeling}, \textbf{Network Analysis}, and an \textbf{Empathetic Mental Health Chatbot}. It applies advanced Natural Language Processing (NLP) methods to analyse mental health discussions, uncover thematic patterns, and support mental-health research and digital intervention tools.
+This repository implements a Large Language Model (LLM)–based framework for Topic Modeling, Network Analysis, and an Empathetic Mental Health Chatbot.
+The project leverages modern NLP techniques to analyze online mental health discussions, uncover underlying themes, and support users through context-aware conversational AI.
 
-\subsection{Project Overview}
+📌 Project Overview
 
-User-generated content from mental health forums offers valuable insights into how individuals express challenges, seek support, and share coping strategies. This project examines these discussions through three core components:
+Online mental health forums contain rich user-generated text that reflects real struggles, coping strategies, and emotional experiences.
+This project provides insights by combining:
 
-\begin{itemize}
-    \item \textbf{Topic Modeling} — discovering key themes and subthemes across mental-health discourse (e.g., Anxiety, Depression, PTSD, Suicidal Thoughts).
-    \item \textbf{Network Analysis} — visualising relationships between subtopics and identifying how challenges cluster or overlap.
-    \item \textbf{Mental Health Chatbot} — generating empathetic, context-aware responses using a Retrieval-Augmented Generation (RAG) pipeline.
-\end{itemize}
+Topic Modeling to extract themes from mental health posts
 
-\subsection{Key Features}
+Network Analysis to visualize relationships between subtopics
 
-\subsubsection{Topic Modeling}
+Mental Health Chatbot powered by Retrieval-Augmented Generation (RAG)
 
-\begin{itemize}
-    \item Built using \textbf{BERTopic}, a transformer-based topic modeling framework.
-    \item Uses \textbf{MentalBERT} for domain-specific embeddings.
-    \item Hyperparameter tuning for UMAP, HDBSCAN, and CountVectorizer to improve topic coherence and diversity.
-    \item Evaluates topics using coherence, topic diversity, and silhouette scores.
-\end{itemize}
+Together, these tools aim to support mental health research and explore AI-assisted early emotional support.
 
-\subsubsection{Network Analysis}
+✨ Key Features
+1. Topic Modeling
 
-\begin{itemize}
-    \item Constructs co-occurrence graphs of subtopics.
-    \item Computes modularity, centrality, assortativity, and related metrics.
-    \item Generates interactive visualisations that reveal subtopic relationships.
-\end{itemize}
+Uses BERTopic with MentalBERT embeddings
 
-\subsubsection{Mental Health Chatbot}
+Extracts topics/subtopics for Depression, Anxiety, PTSD/Trauma, Suicidal Thoughts
 
-\begin{itemize}
-    \item Powered by a \textbf{RAG pipeline} combining retrieval and generation.
-    \item Integrates \textbf{ICD--11} knowledge in a careful, non-diagnostic manner.
-    \item Uses sentiment analysis to adjust tone and emotional sensitivity.
-    \item Supports multiple query-handling modes (\texttt{original}, \texttt{multi}, \texttt{hyde}).
-\end{itemize}
+Includes hyperparameter tuning for:
 
-\subsubsection{Data Preprocessing}
+UMAP
 
-\begin{itemize}
-    \item Removes noise, filler terms, and irrelevant content.
-    \item Generates uni-/bi-/trigrams for BERTopic modeling.
-    \item Computes SentenceTransformer embeddings for all downstream tasks.
-\end{itemize}
+HDBSCAN
 
-\subsubsection{Human-in-the-Loop Evaluation}
+CountVectorizer
 
-\begin{itemize}
-    \item Combines metric-based evaluation with expert and manual review.
-    \item Uses LLM-assisted refinement to verify and improve topic labels.
-\end{itemize}
+Evaluated with:
 
-\subsection{Repository Structure}
+Topic coherence
 
-\begin{verbatim}
-.
-├── .vscode/
-├── data/
-│   ├── AUS_weather/
+Topic diversity
+
+Silhouette score
+
+Includes LLM-assisted topic refinement
+
+2. Network Analysis
+
+Builds subtopic co-occurrence graphs
+
+Computes network metrics such as:
+
+Modularity
+
+Centrality
+
+Assortativity
+
+Produces interactive node-link visualizations
+
+Reveals how stressors (e.g., work, relationships, finances) influence multiple mental health conditions
+
+3. Mental Health Chatbot
+
+Uses a RAG pipeline combining retrieval + LLM generation
+
+Integrates ICD-11 context (non-diagnostic, supportive framing only)
+
+Adapts tone using prompt engineering guidelines
+
+Supports multiple query modes:
+
+original
+
+multi
+
+hyde
+
+Includes sentiment analysis to improve emotional alignment
+
+Produces empathetic, safe, and context-aware responses
+
+4. Data Preprocessing
+
+Cleans posts (removes noise, stopwords, filler terms)
+
+Generates n-grams (uni-, bi-, tri-grams)
+
+Uses SentenceTransformers to generate embeddings
+
+Prepares data for topic modeling and graph construction
+
+5. Human-in-the-Loop Evaluation
+
+Combines automated metrics with manual review
+
+Uses LLMs to refine topic labels and ensure semantic fit
+
+Ensures interpretability and quality of extracted topics
+
+📁 Repository Structure
+LLM_NetworkModel_MentalHealth/
+│
+├── data/                       # Raw and processed datasets
+│   ├── reddit_data/
 │   ├── beyondblue_data/
 │   ├── network_graph/
-│   ├── reddit_data/
-├── lib/
-│   ├── bindings/
-│   ├── tom-select/
-│   ├── vis-9.1.2/
-├── pic/
-├── rag_system/
-│   ├── beyondblue_post_data/
+│   └── AUS_weather/
+│
+├── lib/                        # External libraries
+│
+├── pic/                        # Images and visualizations
+│
+├── rag_system/                 # Retrieval-Augmented Generation pipeline
 │   ├── ICD-11_Data/
-│   ├── general/
-├── topic_modeling_result/
-├── chatbot_local.py
-├── chatbot_API.py
-├── hypertune.ipynb
-├── data_analysis.ipynb
-├── data_collection.ipynb
-├── README.md
-├── requirement.txt
-\end{verbatim}
+│   ├── beyondblue_post_data/
+│   └── general/
+│
+├── topic_modeling_result/      # Topic modeling outputs
+│
+├── chatbot_local.py            # Local chatbot implementation
+├── chatbot_API.py              # API-based chatbot implementation
+├── hypertune.ipynb             # BERTopic hyperparameter tuning
+├── data_analysis.ipynb         # Network analysis
+├── data_collection.ipynb       # Data collection
+│
+├── README.md                   # Project documentation
+└── requirement.txt             # Python dependencies
 
-\subsection{Installation}
-
-\subsubsection{Clone the Repository}
-
-\begin{verbatim}
+🚀 Installation
+1. Clone the repository
 git clone https://github.com/your-username/LLM_NetworkModel_MentalHealth.git
 cd LLM_NetworkModel_MentalHealth
-\end{verbatim}
 
-\subsubsection{Install Dependencies}
-
-\begin{verbatim}
+2. Install dependencies
 pip install -r requirement.txt
-\end{verbatim}
 
-\subsubsection{Download Additional Resources}
+3. Download additional resources
 
-\begin{itemize}
-    \item \textbf{ICD--11 Data}: Set environment variables
-    \texttt{ICD\_CLIENT\_ID} and \texttt{ICD\_CLIENT\_SECRET}.
-    \item \textbf{MentalBERT}: Download the \texttt{mental/mental-bert-base-uncased} model.
-\end{itemize}
+ICD-11 Data
 
-\subsection{Usage}
+Set environment variables:
+ICD_CLIENT_ID, ICD_CLIENT_SECRET
 
-\subsubsection{Topic Modeling}
+MentalBERT Model
 
-Run \texttt{hypertune.ipynb} to train BERTopic and optimise hyperparameters.
+Download model mental/mental-bert-base-uncased
 
-\subsubsection{Network Analysis}
+🧪 Usage
+1. Topic Modeling
 
-Use \texttt{data_analysis.ipynb} to construct and visualise subtopic networks.
+Run:
 
-\subsubsection{Mental Health Chatbot}
+hypertune.ipynb
 
-\paragraph{Local Mode}
-\begin{verbatim}
+
+Adjust UMAP, HDBSCAN, and vectorizer settings for optimal topic quality.
+
+2. Network Analysis
+
+Use:
+
+data_analysis.ipynb
+
+
+to build subtopic networks and generate visualizations.
+
+3. Mental Health Chatbot
+
+Local Mode
+
 python chatbot_local.py
-\end{verbatim}
 
-\paragraph{API Mode}
-\begin{verbatim}
+
+API Mode
+
 python chatbot_API.py
-\end{verbatim}
 
-\subsection{Results}
+📊 Results
+Topic Modeling
 
-\subsubsection{Topic Modeling}
-\begin{itemize}
-    \item Extracted key topics such as Anxiety, Depression, PTSD, and Suicidal Thoughts.
-    \item Achieved strong coherence, diversity, and silhouette scores.
-\end{itemize}
+Extracted themes for Depression, Anxiety, PTSD, and Suicidal Thoughts
 
-\subsubsection{Network Analysis}
-\begin{itemize}
-    \item Revealed central subtopics including ``coping strategies'' and ``emotional support''.
-    \item Node-link diagrams visualise overlapping stressors and condition-specific patterns.
-\end{itemize}
+Validated using coherence, diversity, and silhouette scores
 
-\subsubsection{Chatbot}
-\begin{itemize}
-    \item Provides empathetic, context-aware responses.
-    \item Uses ICD--11 information for non-diagnostic, supportive suggestions.
-\end{itemize}
+Human review improved topic labels and clarity
 
-\subsection{Contributing}
+Network Analysis
 
-Contributions are welcome. To contribute:
+Identified central subtopics (e.g., emotional support, coping strategies)
 
-\begin{enumerate}
-    \item Fork the repository.
-    \item Create a new branch.
-    \item Submit a pull request.
-\end{enumerate}
+Revealed cross-condition connections
 
-\subsection{License}
+Visual node-link diagrams highlight key patterns
 
-This project is released under the \textbf{MIT License}. See the \texttt{LICENSE} file for details.
+Mental Health Chatbot
 
-\subsection{Acknowledgements}
+Generates empathetic, clear, and safe responses
 
-\begin{itemize}
-    \item MentalBERT for domain-specific embeddings.
-    \item BERTopic for topic modeling tools.
-    \item Beyond Blue for mental-health forum data.
-    \item ICD--11 API for structured mental-health information.
-\end{itemize}
+Provides ICD-11 contextual suggestions (non-diagnostic)
+
+Adapts tone to user emotional state
+
+🤝 Contributing
+
+Contributions are welcome!
+
+Fork the repository
+
+Create a feature branch
+
+Submit a pull request
+
+📄 License
+
+This project is licensed under the MIT License.
+See the LICENSE file for details.
+
+🙏 Acknowledgments
+
+MentalBERT for domain-specific embeddings
+
+BERTopic for topic modeling
+
+Beyond Blue for mental health forum data
+
+ICD-11 API for contextual mental health resources
