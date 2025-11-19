@@ -2,7 +2,7 @@
 
 This repository implements a Large Language Model (LLM)-based framework for topic modeling, network analysis, and an empathetic mental health chatbot. The project leverages modern NLP techniques to analyze online mental health discussions, uncover underlying themes, and support users through context-aware conversational AI.
 
-## 📌 Project Overview
+## Project Overview
 
 Online mental health forums contain rich, user-generated text that reflects real struggles, coping strategies, and emotional experiences. This project provides insights by combining:
 
@@ -12,7 +12,11 @@ Online mental health forums contain rich, user-generated text that reflects real
 
 Together, these tools aim to support mental health research and explore AI-assisted early emotional support.
 
-## ✨ Key Features
+
+=====================================================================================================================
+
+
+## Key Features
 
 ### 1. Topic Modeling
 - Uses BERTopic with MentalBERT embeddings
@@ -58,7 +62,7 @@ Together, these tools aim to support mental health research and explore AI-assis
 - Uses LLMs to refine topic labels and ensure semantic fit
 - Ensures interpretability and quality of extracted topics
 
-## 📁 Repository Structure
+## Repository Structure
 LLM_NetworkModel_MentalHealth/
 ├── data/                       # Raw and processed datasets
 │   ├── reddit_data/            # Reddit mental health data
@@ -80,7 +84,7 @@ LLM_NetworkModel_MentalHealth/
 ├── README.md                   # Project documentation
 └── requirements.txt            # Python dependencies
 
-## 🚀 Installation
+## Installation
 
 1. Clone the repository:
 git clone https://github.com/your-username/LLM_NetworkModel_MentalHealth.git
@@ -91,12 +95,11 @@ text3. Download additional resources:
 - **ICD-11 Data**: Set environment variables `ICD_CLIENT_ID` and `ICD_CLIENT_SECRET`.
 - **MentalBERT Model**: Download the model from `mental/mental-bert-base-uncased`.
 
-
-=============================================================
-
+=====================================================================================================================
 
 
-## 🧪 Usage
+
+## Usage
 
 ### 1. Topic Modeling
 Run `hypertune.ipynb` and adjust UMAP, HDBSCAN, and vectorizer settings for optimal topic quality.
@@ -109,9 +112,9 @@ Use `data_analysis.ipynb` to build subtopic networks and generate visualizations
 - **API Mode**: `python chatbot_API.py`
 
 
-============================================================================
+=====================================================================================================================
 
-## 📊 Results
+## Results
 
 ### Topic Modeling
 - Extracted themes for Depression, Anxiety, PTSD, and Suicidal Thoughts
@@ -127,6 +130,10 @@ Use `data_analysis.ipynb` to build subtopic networks and generate visualizations
 - Generates empathetic, clear, and safe responses
 - Provides ICD-11 contextual suggestions (non-diagnostic)
 - Adapts tone to user emotional state
+
+
+=====================================================================================================================
+
 
 ## Contributing
 
