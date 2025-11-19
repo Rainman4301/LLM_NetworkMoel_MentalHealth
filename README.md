@@ -20,7 +20,7 @@ Together, these tools aim to support mental health research and explore AI-assis
 - Uses BERTopic with MentalBERT embeddings
 - Extracts topics/subtopics for Depression, Anxiety, PTSD/Trauma, and Suicidal Thoughts
 - Includes hyperparameter tuning for UMAP, HDBSCAN, and CountVectorizer
-- Evaluated with topic coherence, topic diversity, and silhouette score
+- Evaluated with topic coherence, and topic diversity
 - Includes LLM-assisted topic refinement
 
 ### 2. Network Analysis
@@ -30,7 +30,7 @@ Together, these tools aim to support mental health research and explore AI-assis
 - Reveals how stressors (e.g., work, relationships, finances) influence multiple mental health conditions
 
 ### 3. Mental Health Chatbot
-- Uses a RAG pipeline combining retrieval + LLM generation
+- Uses a RAG framework combining retrieval + LLM generation
 - Integrates ICD-11 context (non-diagnostic, supportive framing only)
 - Adapts tone using prompt engineering guidelines
 - Supports multiple query modes: Original, Multi, and HyDE
@@ -38,10 +38,21 @@ Together, these tools aim to support mental health research and explore AI-assis
 - Produces empathetic, safe, and context-aware responses
 
 ### 4. Data Preprocessing
-- Cleans posts (removes noise, stopwords, filler terms)
-- Generates n-grams (uni-, bi-, tri-grams)
-- Uses SentenceTransformers to generate embeddings
-- Prepares data for topic modeling and graph construction
+
+**Topic Modeling Pipeline:**
+- Removes irrelevant content using regular expressions
+- Translates emojis and emoticons into text to preserve emotional cues
+- Applies lowercasing, stop word removal, lemmatization, and tokenization
+- Extracts bigrams and trigrams to capture domain-specific mental health phrases
+- For BERT embeddings: minimal preprocessing (filtering, lowercasing, emoji conversion) to preserve sentence context
+
+**RAG Database Pipeline:**
+- Processes PDF guideline documents using pdfplumber
+- Segments text into overlapping chunks (200 tokens, 40-token overlap) to maintain semantic continuity
+- Cleans and normalizes text by removing non-linguistic artifacts, headers, footers, and formatting inconsistencies
+- Anonymizes content to eliminate identifiable information from case examples
+- Encodes chunks using MentalBERT-based sentence encoder for domain-specific embeddings
+- Indexes vectors with FAISS for efficient similarity search
 
 ### 5. Human-in-the-Loop Evaluation
 - Combines automated metrics with manual review
@@ -55,46 +66,91 @@ Together, these tools aim to support mental health research and explore AI-assis
 ```
 LLM_NetworkModel_MentalHealth/
 ├── data/                       # Raw and processed datasets
-│   ├── reddit_data/            # Reddit mental health data
-│   ├── beyondblue_data/        # Beyond Blue forum data
-│   ├── network_graph/          # Network analysis outputs
-│   └── AUS_weather/            # Australian weather data (if applicable)
+│   ├── reddit_data/            # Reddit scraped mental health data
+│   ├── beyondblue_data/        # Beyond Blue forum scraped data
+│   ├── network_graph/          # Network data and graphs
+│   └── AUS_weather/            # Australian weather data
 ├── lib/                        # External libraries
 ├── pic/                        # Images and visualizations
-├── rag_system/                 # Retrieval-Augmented Generation pipeline
-│   ├── ICD-11_Data/            # ICD-11 related data
-│   ├── beyondblue_post_data/   # Beyond Blue post data
-│   └── general/                # General utilities
+├── rag_system/                 # Retrieval-Augmented Generation framework
+│   ├── ICD-11_Data/            # ICD-11 guideline data
+│   ├── beyondblue_post_data/   # Beyond Blue post embeddings
+│   └── general/                # General clinical guidelines
 ├── topic_modeling_result/      # Topic modeling outputs
 ├── chatbot_local.py            # Local chatbot implementation
 ├── chatbot_API.py              # API-based chatbot implementation
 ├── hypertune.ipynb             # BERTopic hyperparameter tuning
-├── data_analysis.ipynb         # Network analysis
-├── data_collection.ipynb       # Data collection
+├── data_network.ipynb          # Network graph generation
+├── data_analysis.ipynb         # Topic modeling generation
+├── data_collection.ipynb       # Data collection and scraping
+├── .env                        # Environment variables (create from template)
 ├── README.md                   # Project documentation
 └── requirements.txt            # Python dependencies
 ```
+
+
+
 
 ---
 
 ## Installation
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/your-username/LLM_NetworkModel_MentalHealth.git
-   cd LLM_NetworkModel_MentalHealth
-   ```
+### 1. Clone the repository
 
-2. **Install dependencies:**
-   ```bash
-   pip install -r requirements.txt
-   ```
+**Windows (Command Prompt or PowerShell):**
+```cmd
+git clone https://github.com/your-username/LLM_NetworkModel_MentalHealth.git
+cd LLM_NetworkModel_MentalHealth
+```
 
-3. **Download additional resources:**
-   - **ICD-11 Data**: Set environment variables `ICD_CLIENT_ID` and `ICD_CLIENT_SECRET`
-   - **MentalBERT Model**: Download from `mental/mental-bert-base-uncased`
+**macOS/Linux:**
+```bash
+git clone https://github.com/your-username/LLM_NetworkModel_MentalHealth.git
+cd LLM_NetworkModel_MentalHealth
+```
+
+### 2. Install dependencies
+
+**Windows:**
+```cmd
+pip install -r requirements.txt
+```
+
+**macOS/Linux:**
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Environment variable setup
+
+Create a `.env` file in the project root directory and add your API credentials. The file should follow this format:
+
+```dotenv
+CLIENT_ID=your_reddit_client_id
+CLIENT_SECRET=your_reddit_client_secret
+USERNAME=your_reddit_username
+PASSWORD=your_reddit_password
+HF_TOKEN=your_huggingface_token
+ICD_CLIENT_ID=your_icd_client_id
+ICD_CLIENT_SECRET=your_icd_client_secret
+```
+
+**Variable descriptions:**
+- `CLIENT_ID`, `CLIENT_SECRET`, `USERNAME`, `PASSWORD`: Reddit API credentials for scraping mental health forum data
+- `HF_TOKEN`: Hugging Face authentication token for accessing MentalBERT and other models
+- `ICD_CLIENT_ID`, `ICD_CLIENT_SECRET`: ICD-11 API credentials for retrieving clinical guideline data
+
+**How to obtain credentials:**
+- **Reddit API**: Create an app at [reddit.com/prefs/apps](https://www.reddit.com/prefs/apps) and select "script" type
+- **Hugging Face**: Generate a token at [huggingface.co/settings/tokens](https://huggingface.co/settings/tokens)
+- **ICD-11 API**: Request access at [icd.who.int/icdapi](https://icd.who.int/icdapi)
+
+### 4. Download model files
+
+The **MentalBERT** model will be automatically downloaded from Hugging Face when first running the scripts. Ensure your `HF_TOKEN` is configured if accessing gated models.
 
 ---
+
 
 ## Usage
 
