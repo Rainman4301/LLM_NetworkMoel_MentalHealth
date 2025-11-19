@@ -12,31 +12,20 @@ Online mental health forums contain rich, user-generated text that reflects real
 
 Together, these tools aim to support mental health research and explore AI-assisted early emotional support.
 
-
-=====================================================================================================================
-
+---
 
 ## Key Features
 
 ### 1. Topic Modeling
 - Uses BERTopic with MentalBERT embeddings
 - Extracts topics/subtopics for Depression, Anxiety, PTSD/Trauma, and Suicidal Thoughts
-- Includes hyperparameter tuning for:
-  - UMAP
-  - HDBSCAN
-  - CountVectorizer
-- Evaluated with:
-  - Topic coherence
-  - Topic diversity
-  - Silhouette score
+- Includes hyperparameter tuning for UMAP, HDBSCAN, and CountVectorizer
+- Evaluated with topic coherence, topic diversity, and silhouette score
 - Includes LLM-assisted topic refinement
 
 ### 2. Network Analysis
 - Builds subtopic co-occurrence graphs
-- Computes network metrics such as:
-  - Modularity
-  - Centrality
-  - Assortativity
+- Computes network metrics: modularity, centrality, and assortativity
 - Produces interactive node-link visualizations
 - Reveals how stressors (e.g., work, relationships, finances) influence multiple mental health conditions
 
@@ -44,10 +33,7 @@ Together, these tools aim to support mental health research and explore AI-assis
 - Uses a RAG pipeline combining retrieval + LLM generation
 - Integrates ICD-11 context (non-diagnostic, supportive framing only)
 - Adapts tone using prompt engineering guidelines
-- Supports multiple query modes:
-  - Original
-  - Multi
-  - HyDE
+- Supports multiple query modes: Original, Multi, and HyDE
 - Includes sentiment analysis to improve emotional alignment
 - Produces empathetic, safe, and context-aware responses
 
@@ -62,7 +48,11 @@ Together, these tools aim to support mental health research and explore AI-assis
 - Uses LLMs to refine topic labels and ensure semantic fit
 - Ensures interpretability and quality of extracted topics
 
+---
+
 ## Repository Structure
+
+```
 LLM_NetworkModel_MentalHealth/
 ├── data/                       # Raw and processed datasets
 │   ├── reddit_data/            # Reddit mental health data
@@ -83,21 +73,28 @@ LLM_NetworkModel_MentalHealth/
 ├── data_collection.ipynb       # Data collection
 ├── README.md                   # Project documentation
 └── requirements.txt            # Python dependencies
+```
+
+---
 
 ## Installation
 
-1. Clone the repository:
-git clone https://github.com/your-username/LLM_NetworkModel_MentalHealth.git
-cd LLM_NetworkModel_MentalHealth
-text2. Install dependencies:
-pip install -r requirements.txt
-text3. Download additional resources:
-- **ICD-11 Data**: Set environment variables `ICD_CLIENT_ID` and `ICD_CLIENT_SECRET`.
-- **MentalBERT Model**: Download the model from `mental/mental-bert-base-uncased`.
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/your-username/LLM_NetworkModel_MentalHealth.git
+   cd LLM_NetworkModel_MentalHealth
+   ```
 
-=====================================================================================================================
+2. **Install dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
 
+3. **Download additional resources:**
+   - **ICD-11 Data**: Set environment variables `ICD_CLIENT_ID` and `ICD_CLIENT_SECRET`
+   - **MentalBERT Model**: Download from `mental/mental-bert-base-uncased`
 
+---
 
 ## Usage
 
@@ -108,11 +105,18 @@ Run `hypertune.ipynb` and adjust UMAP, HDBSCAN, and vectorizer settings for opti
 Use `data_analysis.ipynb` to build subtopic networks and generate visualizations.
 
 ### 3. Mental Health Chatbot
-- **Local Mode**: `python chatbot_local.py`
-- **API Mode**: `python chatbot_API.py`
 
+**Local Mode:**
+```bash
+python chatbot_local.py
+```
 
-=====================================================================================================================
+**API Mode:**
+```bash
+python chatbot_API.py
+```
+
+---
 
 ## Results
 
@@ -131,24 +135,29 @@ Use `data_analysis.ipynb` to build subtopic networks and generate visualizations
 - Provides ICD-11 contextual suggestions (non-diagnostic)
 - Adapts tone to user emotional state
 
-
-=====================================================================================================================
-
+---
 
 ## Contributing
 
-Contributions are welcome!
-- Fork the repository
-- Create a feature branch
-- Submit a pull request
+Contributions are welcome! To contribute:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/YourFeature`)
+3. Commit your changes (`git commit -m 'Add some feature'`)
+4. Push to the branch (`git push origin feature/YourFeature`)
+5. Open a Pull Request
+
+---
 
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
+---
+
 ## Acknowledgments
 
-- MentalBERT for domain-specific embeddings
-- BERTopic for topic modeling
-- Beyond Blue for mental health forum data
-- ICD-11 API for contextual mental health resources
+- **MentalBERT** for domain-specific embeddings
+- **BERTopic** for topic modeling
+- **Beyond Blue** for mental health forum data
+- **ICD-11 API** for contextual mental health resources
