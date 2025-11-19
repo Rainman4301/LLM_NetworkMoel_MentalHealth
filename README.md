@@ -91,6 +91,11 @@ text3. Download additional resources:
 - **ICD-11 Data**: Set environment variables `ICD_CLIENT_ID` and `ICD_CLIENT_SECRET`.
 - **MentalBERT Model**: Download the model from `mental/mental-bert-base-uncased`.
 
+
+=============================================================
+
+
+
 ## 🧪 Usage
 
 ### 1. Topic Modeling
@@ -102,6 +107,9 @@ Use `data_analysis.ipynb` to build subtopic networks and generate visualizations
 ### 3. Mental Health Chatbot
 - **Local Mode**: `python chatbot_local.py`
 - **API Mode**: `python chatbot_API.py`
+
+
+============================================================================
 
 ## 📊 Results
 
@@ -120,18 +128,18 @@ Use `data_analysis.ipynb` to build subtopic networks and generate visualizations
 - Provides ICD-11 contextual suggestions (non-diagnostic)
 - Adapts tone to user emotional state
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome!
 - Fork the repository
 - Create a feature branch
 - Submit a pull request
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - MentalBERT for domain-specific embeddings
 - BERTopic for topic modeling
