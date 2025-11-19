@@ -103,11 +103,6 @@ git clone https://github.com/your-username/LLM_NetworkModel_MentalHealth.git
 cd LLM_NetworkModel_MentalHealth
 ```
 
-**macOS/Linux:**
-```bash
-git clone https://github.com/your-username/LLM_NetworkModel_MentalHealth.git
-cd LLM_NetworkModel_MentalHealth
-```
 
 ### 2. Install dependencies
 
@@ -116,10 +111,6 @@ cd LLM_NetworkModel_MentalHealth
 pip install -r requirements.txt
 ```
 
-**macOS/Linux:**
-```bash
-pip install -r requirements.txt
-```
 
 ### 3. Environment variable setup
 
@@ -154,23 +145,35 @@ The **MentalBERT** model will be automatically downloaded from Hugging Face when
 
 ## Usage
 
-### 1. Topic Modeling
-Run `hypertune.ipynb` and adjust UMAP, HDBSCAN, and vectorizer settings for optimal topic quality.
+## Usage
 
-### 2. Network Analysis
-Use `data_analysis.ipynb` to build subtopic networks and generate visualizations.
+### 1. Data Collection
+Run `data_collection.ipynb` to scrape and preprocess mental health forum data from Reddit and Beyond Blue. This notebook handles data cleaning and prepares datasets for topic modeling and analysis.
 
-### 3. Mental Health Chatbot
+### 2. Topic Modeling
+**Generate subtopics:**
+- Run `data_analysis.ipynb` to extract subtopics using BERTopic with MentalBERT embeddings
 
-**Local Mode:**
+**Optimize hyperparameters:**
+- Run `hypertune.ipynb` to fine-tune UMAP, HDBSCAN, and CountVectorizer parameters for improved topic quality and coherence
+
+### 3. Network Analysis
+Run `data_network.ipynb` to build and visualize subtopic co-occurrence networks, revealing relationships and connections across mental health themes.
+
+### 4. Mental Health Chatbot
+
+**Local Mode (Windows):**
+```cmd
+python chatbot_local.py
+```
+
+**Local Mode (macOS/Linux):**
 ```bash
 python chatbot_local.py
 ```
 
 **API Mode:**
-```bash
-python chatbot_API.py
-```
+Run the `chatbot_API.py` script or notebook to use the API-based implementation with external LLM services.
 
 ---
 
