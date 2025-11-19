@@ -183,7 +183,7 @@ python chatbot_API.py
 - Revealed cross-condition connections
 - Visual node-link diagrams highlight key patterns
 
-![](https://myoctocat.com/assets/images/base-octocat.svg)
+![](./pic/Picture22.svg)
 
 ### Mental Health Chatbot
 - Generates empathetic, clear, and safe responses
