@@ -165,7 +165,9 @@ Run `data_network.ipynb` to build and visualize subtopic co-occurrence networks,
 python chatbot_local.py
 ```
 **API Mode:**
-Run the `chatbot_API.py` script or notebook to use the API-based implementation with external LLM services.
+```cmd
+python chatbot_API.py
+```
 
 ---
 
@@ -180,6 +182,8 @@ Run the `chatbot_API.py` script or notebook to use the API-based implementation 
 - Identified central subtopics (e.g., emotional support, coping strategies)
 - Revealed cross-condition connections
 - Visual node-link diagrams highlight key patterns
+
+![Screenshot of a comment on a GitHub issue showing an image, added in the Markdown, of an Octocat smiling and raising a tentacle.](https://myoctocat.com/assets/images/base-octocat.svg)
 
 ### Mental Health Chatbot
 - Generates empathetic, clear, and safe responses
