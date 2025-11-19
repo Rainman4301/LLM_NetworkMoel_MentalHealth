@@ -174,21 +174,25 @@ python chatbot_API.py
 ## Results
 
 ### Topic Modeling
-- Extracted themes for Depression, Anxiety, PTSD, and Suicidal Thoughts
-- Validated using coherence, diversity, and silhouette scores
-- Human review improved topic labels and clarity
+- Extracted meaningful themes across four mental health conditions: Depression, Anxiety, PTSD, and Suicidal Thoughts
+- Validated topic quality using coherence and diversity metrics
+- Enhanced topic labels through human review and LLM-assisted refinement for improved interpretability
 
 ### Network Analysis
-- Identified central subtopics (e.g., emotional support, coping strategies)
-- Revealed cross-condition connections
-- Visual node-link diagrams highlight key patterns
+- Identified central subtopics including coping strategies, medication side effects, and family issues
+- Revealed cross-condition connections showing how different mental health themes intersect
+- Generated visual node-link diagrams highlighting key patterns and relationships between subtopics
+- Conducted hypothesis testing to validate network structure and community detection
 
-![](./pic/Picture22.svg)
+![Network Visualization](./pic/Picture22.svg)
 
 ### Mental Health Chatbot
-- Generates empathetic, clear, and safe responses
-- Provides ICD-11 contextual suggestions (non-diagnostic)
-- Adapts tone to user emotional state
+- Generates empathetic, clear, and emotionally appropriate responses
+- Provides ICD-11 contextual information with supportive framing (non-diagnostic)
+- Dynamically adapts conversational tone based on user emotional state
+- Integrates RAG pipeline for evidence-based mental health support
+
+![Chatbot Interface](./pic/Screenshot%202025-11-08%20165527.png)
 
 ---
 
