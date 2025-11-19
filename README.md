@@ -145,8 +145,6 @@ The **MentalBERT** model will be automatically downloaded from Hugging Face when
 
 ## Usage
 
-## Usage
-
 ### 1. Data Collection
 Run `data_collection.ipynb` to scrape and preprocess mental health forum data from Reddit and Beyond Blue. This notebook handles data cleaning and prepares datasets for topic modeling and analysis.
 
@@ -166,12 +164,6 @@ Run `data_network.ipynb` to build and visualize subtopic co-occurrence networks,
 ```cmd
 python chatbot_local.py
 ```
-
-**Local Mode (macOS/Linux):**
-```bash
-python chatbot_local.py
-```
-
 **API Mode:**
 Run the `chatbot_API.py` script or notebook to use the API-based implementation with external LLM services.
 
