@@ -210,7 +210,11 @@ Contributions are welcome! To contribute:
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+You are free to use, modify, and distribute this code for any purpose, including commercial applications, as long as you include the original copyright notice.
 
 ---
 
