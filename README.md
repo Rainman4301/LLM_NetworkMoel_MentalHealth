@@ -206,9 +206,9 @@ Contributions are welcome! To contribute:
 4. Push to the branch (`git push origin feature/YourFeature`)
 5. Open a Pull Request
 
----
+Please ensure your code follows the existing style and includes appropriate documentation.
 
-## License
+---
 
 ## License
 
@@ -220,7 +220,10 @@ You are free to use, modify, and distribute this code for any purpose, including
 
 ## Acknowledgments
 
-- **MentalBERT** for domain-specific embeddings
-- **BERTopic** for topic modeling
-- **Beyond Blue** for mental health forum data
-- **ICD-11 API** for contextual mental health resources
+- **Dr. Indu Bala** - Project supervisor and advisor
+- **meta-llama/Llama-3.1-405B-Instruct** - Foundation model for the mental health chatbot
+- **MentalBERT** - Domain-specific embeddings for mental health text
+- **BERTopic** - Topic modeling framework
+- **Beyond Blue** - Mental health forum data source
+- **ICD-11 API** - Clinical guideline and contextual mental health resources
+- **Reddit** - Community mental health discussion data
