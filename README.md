@@ -59,37 +59,6 @@ Together, these tools aim to support mental health research and explore AI-assis
 - Uses LLMs to refine topic labels and ensure semantic fit
 - Ensures interpretability and quality of extracted topics
 
----
-
-## Repository Structure
-
-```
-LLM_NetworkModel_MentalHealth/
-├── data/                       # Raw and processed datasets
-│   ├── reddit_data/            # Reddit scraped mental health data
-│   ├── beyondblue_data/        # Beyond Blue forum scraped data
-│   ├── network_graph/          # Network data and graphs
-│   └── AUS_weather/            # Australian weather data
-├── lib/                        # External libraries
-├── pic/                        # Images and visualizations
-├── rag_system/                 # Retrieval-Augmented Generation framework
-│   ├── ICD-11_Data/            # ICD-11 guideline data
-│   ├── beyondblue_post_data/   # Beyond Blue post embeddings
-│   └── general/                # General clinical guidelines
-├── topic_modeling_result/      # Topic modeling outputs
-├── chatbot_local.py            # Local chatbot implementation
-├── chatbot_API.py              # API-based chatbot implementation
-├── hypertune.ipynb             # BERTopic hyperparameter tuning
-├── data_network.ipynb          # Network graph generation
-├── data_analysis.ipynb         # Topic modeling generation
-├── data_collection.ipynb       # Data collection and scraping
-├── .env                        # Environment variables (create from template)
-├── README.md                   # Project documentation
-└── requirements.txt            # Python dependencies
-```
-
-
-
 
 ---
 
@@ -142,7 +111,6 @@ The **MentalBERT** model will be automatically downloaded from Hugging Face when
 
 ---
 
-
 ## Usage
 
 ### 1. Data Collection
@@ -167,6 +135,7 @@ python chatbot_local.py
 **API Mode:**
 - Run `data_chatbot_API.ipynb`
 
+---
 
 ## Results
 
