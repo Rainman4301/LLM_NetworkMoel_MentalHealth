@@ -165,10 +165,7 @@ Run `data_network.ipynb` to build and visualize subtopic co-occurrence networks,
 python chatbot_local.py
 ```
 **API Mode:**
-```cmd
-python chatbot_API.py
-```
-
+Run `data_chatbot_API.ipynb`
 ---
 
 ## Results
@@ -184,7 +181,7 @@ python chatbot_API.py
 - Generated visual node-link diagrams highlighting key patterns and relationships between subtopics
 - Conducted hypothesis testing to validate network structure and community detection
 
-![Network Visualization](./pic/Picture22.svg)
+
 
 ### Mental Health Chatbot
 - Generates empathetic, clear, and emotionally appropriate responses
@@ -192,7 +189,7 @@ python chatbot_API.py
 - Dynamically adapts conversational tone based on user emotional state
 - Integrates RAG pipeline for evidence-based mental health support
 
-![Chatbot Interface](./pic/Screenshot%202025-11-08%20165527.png)
+
 
 ---
 
