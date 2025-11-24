@@ -13,6 +13,25 @@ Online mental health forums contain rich, user-generated text that reflects real
 Together, these tools aim to support mental health research and explore AI-assisted early emotional support.
 
 ---
+## Related Research Paper
+
+This project builds on my earlier research on topic modeling and mental-health text analysis.  
+A detailed explanation of the methods and findings can be found in my published paper:
+
+**Liao, Y.-C. (2023). _Subtopic Analysis of Mental Health Discussions Using BERTopic and Network Methods._  
+In AI Research and Development. Springer.**  
+Available at: https://link.springer.com/chapter/10.1007/978-3-032-09832-0_11
+
+This paper supports the project’s main objectives:
+
+- **Objective 1 – Topic Modeling:**  
+  Provides the foundation for BERTopic experiments, tuning UMAP/HDBSCAN parameters,  
+  and refining labels using LLM-based review.
+
+- **Objective 2 – Network Analysis:**  
+  Introduces the early development of subtopic co-occurrence networks and  
+  statistical validation methods, which are expanded in this project.
+---
 
 ## Key Features
 
